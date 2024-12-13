@@ -10,8 +10,16 @@ export const riegoApi = createApi({
         getValvulaRiego: builder.query<RiegoInfo[], void>({
             query: () => 'items',
             transformResponse: (response: RiegoResponse[]) => response.map(riegoMapper),
-        },
-        ),}),
+        }),
+
+        postValvulaRiego: builder.mutation<RiegoInfo, RiegoInfo>({
+            query: (newItem) => ({
+                url: 'items',
+                method: 'POST',
+                body: newItem,
+            }),
+        }),
+    }),
 })
 
-export const { useGetValvulaRiegoQuery } = riegoApi
+export const { useGetValvulaRiegoQuery, usePostValvulaRiegoMutation } = riegoApi

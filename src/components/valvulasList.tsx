@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import useRiego from '../hooks/useRiego';
-import OnOffButton from './onOffButton';
+
+import ValvulaItem from './valvulaItem';
 
 const ValvulasList = () => {
     const { valvulas, error, isLoading } = useRiego();
@@ -25,29 +26,28 @@ const ValvulasList = () => {
 
     return (
         <View style={styles.outerContainer}>
-            <FlatList
-                contentContainerStyle={styles.centeredContainer}
-                style={styles.list}
-                data={valvulas}
-                keyExtractor={(item) => item.values[0].name}
-                renderItem={({ item }) => (
-                    <View style={styles.card}>
-                        <Text style={styles.cardTitle}>{item.name}</Text>
-                        {item.values.map((value, index) => (
-                            <View key={index} style={styles.cardContent}>
-                                <View style={styles.stateContainer}>
-                                    <Text style={styles.cardText}>{value.name}</Text>
-                                    <OnOffButton
-                                        value={value.state}
-                                        onToggleSwitch={() => console.log('Toggle switch')}
-                                     />
-                                </View>
-                            </View>
-                        ))}
-                    </View>
-                )}
-            />
-        </View>
+        <FlatList
+            contentContainerStyle={styles.centeredContainer}
+            style={styles.list}
+            data={valvulas}
+            keyExtractor={(item) => item.values[0].name}
+            renderItem={({ item }) => (
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>{item.name}</Text>
+                    {item.values.map((value, index) => {
+                        return (
+                           <ValvulaItem
+                                key={index}
+                                name={value.name}
+                                valueName={value.name}
+                                initialState={value.state}
+                            />
+                        );
+                    })}
+                </View>
+            )}
+        />
+    </View>
     );
 };
 
