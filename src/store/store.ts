@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query'
 import { riegoApi } from '../http/httpRQ'
 
 export const store = configureStore({
@@ -11,4 +10,5 @@ export const store = configureStore({
     getDefaultMiddleware().concat(riegoApi.middleware),
 })
 
-setupListeners(store.dispatch)
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
