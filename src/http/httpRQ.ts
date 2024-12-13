@@ -5,7 +5,7 @@ import { riegoMapper } from '../config/mapper/riegoMapper';
 
 export const riegoApi = createApi({
     reducerPath: 'riegoApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://10.208.10.1:3000/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://172.17.0.1:3000/' }),
     endpoints: (builder) => ({
         getValvulaRiego: builder.query<RiegoInfo[], void>({
             query: () => 'items',
