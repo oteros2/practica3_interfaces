@@ -7,68 +7,89 @@ const ValvulasList = () => {
 
     if (isLoading) {
         return (
-            <View style={styles.centered}>
-                <ActivityIndicator size="large" />
+            <View style={styles.centeredContainer}>
+                <ActivityIndicator size="large" color="#007AFF" />
             </View>
         );
     }
 
     if (error) {
         return (
-            <View style={styles.centered}>
-                <Text style={styles.error}>{ }</Text>
+            <View style={styles.centeredContainer}>
+                <Text style={styles.errorText}>An error occurred. Please try again later.</Text>
             </View>
         );
     }
 
     return (
-        <FlatList
-            style={styles.list}
-            data={valvulas}
-            keyExtractor={(item) => item.values[0].name}
-            renderItem={({ item }) => (
-                <View style={styles.item}>
-                    <Text style={styles.text}>{item.name}</Text>
-                    {item.values.map((value, index) => (
-                        <View key={index}>
-                            <Text style={styles.text}>{value.name}</Text>
-                            <Text style={styles.text}>{value.state.toString()}</Text>
-                        </View>
-                    ))}
-                </View>
-            )}
-        />
+        <View style={styles.outerContainer}>
+            <FlatList
+                contentContainerStyle={styles.centeredContainer}
+                style={styles.list}
+                data={valvulas}
+                keyExtractor={(item) => item.values[0].name}
+                renderItem={({ item }) => (
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>{item.name}</Text>
+                        {item.values.map((value, index) => (
+                            <View key={index} style={styles.cardContent}>
+                                <Text style={styles.cardText}>{value.name}</Text>
+                                <Text style={styles.cardText}>{value.state.toString()}</Text>
+                            </View>
+                        ))}
+                    </View>
+                )}
+            />
+        </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    centered: {
+    outerContainer: {
         flex: 1,
+        backgroundColor: '#f2f2f2',
+    },
+    centeredContainer: {
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 16,
     },
-    error: {
-        color: 'red',
+    errorText: {
+        color: '#FF3B30',
         fontSize: 16,
+        fontWeight: '600',
+        textAlign: 'center',
     },
     list: {
-        padding: 16,
+        width: '100%',
     },
-    item: {
-        backgroundColor: '#f9f9f9',
+    card: {
+        backgroundColor: '#ffffff',
+        borderRadius: 12,
         padding: 16,
         marginVertical: 8,
-        borderRadius: 8,
         shadowColor: '#000',
         shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 4,
-        elevation: 2,
+        shadowOffset: { width: 0, height: 4 },
+        shadowRadius: 6,
+        elevation: 3,
         borderWidth: 0.5,
+        borderColor: '#ddd',
+        width: '100%',
     },
-    text: {
-        fontSize: 18,
+    cardTitle: {
+        fontSize: 30,
+        fontWeight: '700',
         color: '#333',
+        marginBottom: 8,
+    },
+    cardContent: {
+        marginBottom: 8,
+    },
+    cardText: {
+        fontSize: 25,
+        color: '#555',
     },
 });
 
