@@ -3,9 +3,11 @@ import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-nativ
 import ValvulaItem from './valvulaItem';
 import { useGetValvulaRiegoQuery } from '../http/httpRQ';
 
+// componente de la lista de valvulas
 const ValvulasList = () => {
     const { data: valvulas, isLoading, error } = useGetValvulaRiegoQuery();
 
+    // si esta cargando se muestra un indicador de carga
     if (isLoading) {
         return (
             <View style={styles.centeredContainer}>
@@ -15,6 +17,7 @@ const ValvulasList = () => {
         );
     }
 
+    // si hay un error se muestra un mensaje de error
     if (error) {
         return (
             <View style={styles.centeredContainer}>
@@ -23,6 +26,7 @@ const ValvulasList = () => {
         );
     }
 
+    // crea la lista de valvulas con sus respectivos items
     return (
         <View style={styles.outerContainer}>
         <FlatList

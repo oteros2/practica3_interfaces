@@ -3,13 +3,16 @@ import { View, Text, StyleSheet } from 'react-native';
 import OnOffButton from './onOffButton';
 import useStateValvula from '../hooks/useStateValvula';
 
+// props de la valvula
 interface ValvulaItemProps {
     name: string;
     valueName: string;
     initialState: boolean;
 }
 
+// componente de la valvula
 const ValvulaItem: React.FC<ValvulaItemProps> = ({ name, valueName, initialState }) => {
+    // hook para  controlar el estado de la valvula
     const { valvula, toggleState } = useStateValvula({
         name, values: [{ name: valueName, state: initialState }],lastDate: ''
     });
