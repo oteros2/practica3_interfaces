@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import useRiego from '../hooks/useRiego';
-
 import ValvulaItem from './valvulaItem';
+import { useGetValvulaRiegoQuery } from '../http/httpRQ';
 
 const ValvulasList = () => {
-    const { valvulas, error, isLoading } = useRiego();
+    const { data: valvulas, isLoading, error } = useGetValvulaRiegoQuery();
 
     if (isLoading) {
         return (

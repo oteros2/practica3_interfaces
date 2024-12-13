@@ -1,20 +1,17 @@
 import { useState } from 'react';
-import { usePostValvulaRiegoMutation } from '../http/httpRQ';
 import { RiegoInfo } from '../config/entities/riegoInfo';
+import { usePostValvulaRiegoMutation } from '../http/httpRQ';
 
 const useStateValvula = (initialValvula: RiegoInfo) => {
     const [valvula, setValvula] = useState(initialValvula);
     const [postValvulaRiego] = usePostValvulaRiegoMutation();
 
     const toggleState = async () => {
-        const updatedValvula = {
-            ...valvula,
-            values: valvula.values.map(value => ({ ...value, state: !value.state })),
-        };
-        setValvula(updatedValvula);
-        await postValvulaRiego(updatedValvula);
-    };
-
+        const newValvula = { ...valvula };
+        newValvula.values[0].state = !newValvula.values[0].state;
+        setValvula(newValvula);
+        await postValvulaRiego(newValvula);
+    }
     return { valvula, toggleState };
 };
 

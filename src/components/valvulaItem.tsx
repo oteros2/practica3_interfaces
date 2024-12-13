@@ -10,7 +10,9 @@ interface ValvulaItemProps {
 }
 
 const ValvulaItem: React.FC<ValvulaItemProps> = ({ name, valueName, initialState }) => {
-    const { valvula, toggleState } = useStateValvula({ name, values: [{ name: valueName, state: initialState }] });
+    const { valvula, toggleState } = useStateValvula({
+        name, values: [{ name: valueName, state: initialState }],lastDate: ''
+    });
 
     return (
         <View style={styles.card}>
